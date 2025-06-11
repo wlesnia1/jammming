@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import SearchBar from "./SearchBar";
-import SearchResults from "./SearchResults";
+import Tracklist from "./Tracklist";
 import Playlist from "./Playlist";
 
 function App() {
@@ -65,12 +65,16 @@ function App() {
       }).then(json => {
         console.log(json);
         let trackz = [];
+        let index = 0; // necessary for child components to know what to add/remove from tracklist/playlist
         for (const track of json.tracks.items) {
           for (const artist of track.artists) {
             trackz.push({
               name: track.name,
-              artist: artist.name
+              artist: artist.name,
+              album: track.album.name,
+              index
             });
+            index++;
           }
         }
         setSearchTracks(trackz)
@@ -80,14 +84,33 @@ function App() {
     }
   }
 
+  function addToPlaylist(e) {
+    // a bit clunky but assigning playlistTrack = searchTracks[e.target.value] causes issues (shallow copy vs. the below deep copy)
+    // also need playlistTracks to have their own indices; since playlistTracks could add index 0 of searchTracks multiple times
+    let playlistTrack = {
+      name: searchTracks[e.target.value].name,
+      artist: searchTracks[e.target.value].artist,
+      album: searchTracks[e.target.value].album,
+      index: playlistTracks.length
+    };
+    setPlaylistTracks([...playlistTracks, playlistTrack]);
+  }
+
+  function removeFromPlaylist(e) {
+    setPlaylistTracks([...playlistTracks.filter(track => track.index != e.target.value)]);
+  }
+
   if (loading) return <h1>Loading...</h1>;
   if (error) return <><h1>Error: {error}</h1></>;
+
 
   return (
     <div>
       <SearchBar searchInput={searchInput} onSubmitHandler={search} onChangeHandler={onSearchInput} />
-      <SearchResults tracks={searchTracks} />
-      <Playlist tracks={playlistTracks}/>
+      <div style={{display: "flex"}}>
+        <Tracklist tracks={searchTracks} addToPlaylist={addToPlaylist} />
+        <Playlist tracks={playlistTracks} removeFromPlaylist={removeFromPlaylist}/>
+      </div>
       <button type="button">Save to Spotify</button>
     </div>
   );
