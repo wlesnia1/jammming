@@ -5,9 +5,9 @@ import Tracklist from "./Tracklist";
 import Playlist from "./Playlist";
 
 function App() {
-  // TODO: hide these or change them to user inputs
+  // TODO: move CLIENT_ID to a config file that I don't upload; read from that file and assign it to the below variable
   const CLIENT_ID = "1cd44f9ad61f4d13b2f01407183fa3f2";
-  const REDIRECT_URI = "https://wlesnia1.github.io/jammming/#/";
+  const REDIRECT_URI = "https://wlesnia1.github.io/jammming/#/"; // # shenanigans to get around GH pages issues
   const SCOPES = ["user-read-private", "playlist-modify-private"];
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 
