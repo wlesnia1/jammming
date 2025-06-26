@@ -4,7 +4,7 @@ function SearchBar({ searchInput, onChangeHandler, onSubmitHandler }) {
 
   return (
     <form onSubmit={onSubmitHandler}>
-      <input type="text" onChange={onChangeHandler} value={searchInput}  />
+      <input type="text" style={{marginRight: "1rem"}} onChange={onChangeHandler} value={searchInput}  />
       <button>Search</button>
     </form>
   );

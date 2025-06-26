@@ -36,7 +36,9 @@ function App() {
         method: "GET"
       }).then(response => {
         if (!response.ok) {
-          throw new Error("API response status: " + response.status + "; statusText: " + response.statusText);
+          if (response.status !== 401) {// auth token expired or doesn't exist; no need to throw an error
+            throw new Error("API response status: " + response.status + "; statusText: " + response.statusText);
+          }
         }
         return response.json();
       }).then(json => {
