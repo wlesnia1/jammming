@@ -10,6 +10,8 @@ function AppRouter() {
         <Route path="/" element={<Login />} />
         <Route path="jammming/callback" element={<CallbackPage />} />
         <Route path="/callback" element={<CallbackPage />} />
+        <Route path="/%2Fcallback" element={<CallbackPage />} />
+        <Route path="jammming/%2Fcallback" element={<CallbackPage />} />
       </Routes>
     </HashRouter>
   );

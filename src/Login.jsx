@@ -7,7 +7,7 @@ import Playlist from "./Playlist";
 function App() {
   // TODO: hide these or change them to user inputs
   const CLIENT_ID = "1cd44f9ad61f4d13b2f01407183fa3f2";
-  const REDIRECT_URI = "https://wlesnia1.github.io/jammming/#/callback";
+  const REDIRECT_URI = "https://wlesnia1.github.io/jammming/#/";
   const SCOPES = ["user-read-private", "playlist-modify-private"];
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 
@@ -84,7 +84,7 @@ function App() {
     const hashed = await sha256(codeVerifier)
     const codeChallenge = base64encode(hashed);
 
-    const authURL = `${AUTH_ENDPOINT}?response_type=code&client_id=${CLIENT_ID}&scope=${encodeURIComponent(SCOPES.join(" "))}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&code_challenge_method=S256&code_challenge=${codeChallenge}&state=${state}`;
+    const authURL = `${AUTH_ENDPOINT}?response_type=code&client_id=${CLIENT_ID}&scope=${encodeURIComponent(SCOPES.join(" "))}&redirect_uri=${encodeURIComponent(REDIRECT_URI + "callback")}&code_challenge_method=S256&code_challenge=${codeChallenge}&state=${state}`;
 
     window.location.href = authURL;
   };
@@ -210,7 +210,7 @@ function App() {
       {error && (<h1>Error: {error}</h1>)}
       {!userId && (
         <div id="loginButton">
-          <button onClick={handleLogin}>Login to Spotify5</button>
+          <button onClick={handleLogin}>Login to Spotify6</button>
         </div>
       )}
       {userId && (<SearchBar searchInput={searchInput} onSubmitHandler={search} onChangeHandler={onSearchInput} />)}
