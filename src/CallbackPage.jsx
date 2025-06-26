@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 function CallbackPage() {
   const CLIENT_ID = "1cd44f9ad61f4d13b2f01407183fa3f2";
-  const REDIRECT_URI = "https://192.168.0.45:5173/";
+  const REDIRECT_URI = "https://wlesnia1.github.io/jammming/callback";
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get("code");
