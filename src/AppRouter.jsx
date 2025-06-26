@@ -6,12 +6,10 @@ function AppRouter() {
   return (
     <HashRouter>
       <Routes>
-        <Route path="jammming/" element={<Login />} />
         <Route path="/" element={<Login />} />
-        <Route path="jammming/callback" element={<CallbackPage />} />
         <Route path="/callback" element={<CallbackPage />} />
-        <Route path="/%2Fcallback" element={<CallbackPage />} />
-        <Route path="jammming/%2Fcallback" element={<CallbackPage />} />
+        {/* Not sure why I need to do this, but GH pages seems to have some wonky interactions with React/front end routing */}
+        <Route path="/%2Fcallback" element={<CallbackPage />} /> 
       </Routes>
     </HashRouter>
   );
