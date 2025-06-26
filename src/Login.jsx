@@ -210,7 +210,7 @@ function App() {
       {error && (<h1>Error: {error}</h1>)}
       {!userId && (
         <div id="loginButton">
-          <button onClick={handleLogin}>Login to Spotify4</button>
+          <button onClick={handleLogin}>Login to Spotify5</button>
         </div>
       )}
       {userId && (<SearchBar searchInput={searchInput} onSubmitHandler={search} onChangeHandler={onSearchInput} />)}
