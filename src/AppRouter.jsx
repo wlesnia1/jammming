@@ -6,8 +6,8 @@ function AppRouter() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/callback" element={<CallbackPage />} />
+        <Route path="jammming/" element={<Login />} />
+        <Route path="jammming/callback" element={<CallbackPage />} />
       </Routes>
     </Router>
   );
