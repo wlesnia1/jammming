@@ -6,7 +6,6 @@ import Playlist from "./Playlist";
 
 function App() {
   // TODO: hide these or change them to user inputs
-  const SECRET = "79cf5160128747c4a7d9b2e1ac39808e";
   const CLIENT_ID = "1cd44f9ad61f4d13b2f01407183fa3f2";
   const REDIRECT_URI = "https://192.168.0.45:5173/callback";
   const SCOPES = ["user-read-private", "playlist-modify-private"];
@@ -21,37 +20,6 @@ function App() {
   const [playlistTracks, setPlaylistTracks] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
-  // console.log(localStorage.getItem("spotify_access_token"));
-  // console.log(auth);
-  /*
-  useEffect(() => {
-    fetch("https://accounts.spotify.com/api/token", {
-      body: new URLSearchParams({
-        grant_type: "client_credentials",
-        client_id: CLIENT_ID,
-        client_secret: SECRET
-      }),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      method: "POST"
-    }).then(response => {
-      if(!response.ok) {
-        setError("Authorization failed");
-        setLoading(false);
-      }
-      return response.json();
-    }).then(json => {
-      setAuth(json);
-      setLoading(false);
-    }).catch(err => {
-      setError(err);
-      setLoading(false);
-    });
-  },[]);
-  */
-
   useEffect(() => {
     if (localStorage.getItem("spotify_access_token")) {
       setAuth(localStorage.getItem("spotify_access_token"));
@@ -59,8 +27,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log(localStorage.getItem("spotify_access_token"));
-    console.log(auth);
     if (auth) {
       fetch(`https://api.spotify.com/v1/me`, {
         headers: {
@@ -69,13 +35,11 @@ function App() {
         },
         method: "GET"
       }).then(response => {
-        console.log(response);
         if (!response.ok) {
           throw new Error("API response status: " + response.status + "; statusText: " + response.statusText);
         }
         return response.json();
       }).then(json => {
-        console.log(json);
         setUserId(json.id);
         setError(null);
         setLoading(false);
@@ -155,7 +119,6 @@ function App() {
             index++;
           }
         }
-        document.getElementById("header").style.setProperty("visibility", "visible");
         setError(null);
         setSearchTracks(trackz);
       }).catch(err => {
@@ -175,17 +138,13 @@ function App() {
       uri: searchTracks[e.target.value].uri
     };
     setPlaylistTracks([...playlistTracks, playlistTrack]);
-    document.getElementById("saveButton").style.setProperty("visibility", "visible");
   }
 
   function removeFromPlaylist(e) {
     setPlaylistTracks([...playlistTracks.filter(track => track.index != e.target.value)]);
-    if (playlistTracks.length === 1) document.getElementById("saveButton").style.setProperty("visibility", "hidden");
   }
 
   function onClickHandlerSave() {
-    console.log(playlistTracks);
-    console.log(document.getElementById("playlistTitle").value);
     if (!document.getElementById("playlistTitle").value) {
       alert("Playlist must have a title");
     } else if (playlistTracks.length === 0) { //should be unreachable since Save button is hidden with an empty playlist, but eh
@@ -204,13 +163,11 @@ function App() {
         },
         method: "POST"
       }).then(response => {
-        console.log(response);
         if(!response.ok) {
           throw new Error("API response status: " + response.status + "; statusText: " + response.statusText);
         }
         return response.json();
       }).then(json => {
-        console.log(json);
         const playlistId = json.id
         const playlistURIs = [];
         //add tracks
@@ -229,7 +186,6 @@ function App() {
           },
           method: "POST"
         }).then(response => {
-          console.log(response);
           if(!response.ok) {
             throw new Error("API response status: " + response.status + "; statusText: " + response.statusText);
           }
@@ -246,27 +202,27 @@ function App() {
 
 
   return (
-    <div>
+    <div id="appBlock">
       {error && (<h1>Error: {error}</h1>)}
       {!userId && (
         <div id="loginButton">
           <button onClick={handleLogin}>Login to Spotify</button>
         </div>
       )}
-      {userId && (
-        <div id="searchBlock">
-          <SearchBar searchInput={searchInput} onSubmitHandler={search} onChangeHandler={onSearchInput} />
-          <div style={{display: "flex", visibility: "hidden", alignItems: "center"}} id="header">
-            <h2 style={{flexBasis: 0, flexGrow: 1}}>Search Results</h2>
-            <h2 style={{flexBasis: 0, flexGrow: 1}}>Playlist Title: <input type="text" maxLength="30" style={{height: "60%", width: "10rem"}} id="playlistTitle" /></h2>
-          </div>
-          <div style={{display: "flex"}}>
-            <Tracklist tracks={searchTracks} addToPlaylist={addToPlaylist} />
-            <Playlist tracks={playlistTracks} removeFromPlaylist={removeFromPlaylist}/>
-          </div>
-          <button type="button" onClick={onClickHandlerSave} style={{visibility: "hidden"}} id="saveButton">Save to Spotify</button>
+      {userId && (<SearchBar searchInput={searchInput} onSubmitHandler={search} onChangeHandler={onSearchInput} />)}
+      {searchTracks.length >= 1 && (
+        <>
+        <div style={{display: "flex", alignItems: "center"}}>
+          <h2 style={{flexBasis: 0, flexGrow: 1}}>Search Results</h2>
+          <h2 style={{flexBasis: 0, flexGrow: 1}}>Playlist Title: <input type="text" maxLength="30" style={{height: "60%", width: "10rem"}} id="playlistTitle" /></h2>
         </div>
+        <div style={{display: "flex"}}>
+          <Tracklist tracks={searchTracks} addToPlaylist={addToPlaylist} />
+          <Playlist tracks={playlistTracks} removeFromPlaylist={removeFromPlaylist}/>
+        </div>
+        </>
       )}
+      {playlistTracks.length >= 1 && (<button type="button" onClick={onClickHandlerSave} id="saveButton">Save to Spotify</button>)}
     </div>
   );
 }

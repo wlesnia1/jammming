@@ -1,13 +1,21 @@
 #root {
-  /* max-width: 1280px; */
-  margin: 0 auto;
-  padding: 2rem;
   line-height: normal;
+  background-image: url(./assets/background.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  height: 100%;
+  overflow: auto;
 }
 
 div {
   margin: 0 auto;
   text-align: center;
+}
+
+#appBlock {
+  padding: 2rem;
+  max-width: 1440px;
 }
 
 li button {
@@ -20,4 +28,9 @@ li div p {
 
 ul {
   text-align: left;
+}
+
+footer {
+    text-align: center;
+    margin-top: auto;
 }
