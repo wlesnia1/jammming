@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-//DELETE THIS
+
 function SearchBar({ searchInput, onChangeHandler, onSubmitHandler }) {
 
   return (

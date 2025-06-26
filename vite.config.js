@@ -5,4 +5,8 @@ import mkcert from 'vite-plugin-mkcert';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), mkcert()],
+  server: {
+    host: "67.242.161.78",
+    port: 5173,
+  }
 })
