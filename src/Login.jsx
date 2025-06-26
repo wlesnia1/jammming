@@ -7,7 +7,7 @@ import Playlist from "./Playlist";
 function App() {
   // TODO: hide these or change them to user inputs
   const CLIENT_ID = "1cd44f9ad61f4d13b2f01407183fa3f2";
-  const REDIRECT_URI = "https://192.168.0.45:5173/callback";
+  const REDIRECT_URI = "https://wlesnia1.github.io/jammming/callback";
   const SCOPES = ["user-read-private", "playlist-modify-private"];
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 
@@ -49,6 +49,8 @@ function App() {
         setError(err.message);
         setLoading(false);
       });
+    } else {
+      setLoading(false);
     }
   }, [auth]);
 
