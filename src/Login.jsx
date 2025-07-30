@@ -24,6 +24,7 @@ function App() {
     if (localStorage.getItem("spotify_access_token")) {
       setAuth(localStorage.getItem("spotify_access_token"));
     }
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -49,8 +50,6 @@ function App() {
         setError(err.message);
         setLoading(false);
       });
-    } else {
-      setLoading(false);
     }
   }, [auth]);
 
