@@ -213,7 +213,6 @@ function App() {
   return (
     <div id="appBlock">
       {error && (<h1>Error: {error}</h1>)}
-      <a href="index.html"><img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="Home Icon" style="max-height: 3rem; margin-right: 1rem"/></a>
       {!userId && (
         <div id="loginButton">
           <button onClick={handleLogin}>Login to Spotify</button>
