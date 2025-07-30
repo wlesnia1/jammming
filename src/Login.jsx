@@ -23,12 +23,6 @@ function App() {
   useEffect(() => {
     if (localStorage.getItem("spotify_access_token")) {
       setAuth(localStorage.getItem("spotify_access_token"));
-    }
-    setLoading(false);
-  }, []);
-
-  useEffect(() => {
-    if (auth) {
       fetch(`https://api.spotify.com/v1/me`, {
         headers: {
           Authorization: `Bearer ${auth}`,
@@ -50,9 +44,11 @@ function App() {
         setError(err.message);
         setLoading(false);
       });
+    } else {
+      setUserId(null);
+      setLoading(false);
     }
-  }, [auth]);
-
+  }, []);
   
   const generateRandomString = (length) => {
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
