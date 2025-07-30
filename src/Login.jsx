@@ -192,6 +192,11 @@ function App() {
         }).then(response => {
           if(!response.ok) {
             throw new Error("API response status: " + response.status + "; statusText: " + response.statusText);
+          } else {
+            alert("Playlist Saved!");
+            setPlaylistTracks([]);
+            setSearchTracks([]);
+            setSearchInput("");
           }
         }).catch(err => {
           setError(err.message);

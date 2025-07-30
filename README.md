@@ -8,4 +8,4 @@ Follow the login prompt, search for songs, add them to a playlist, then click th
 
 # Plans for the future
 
-Pull clientID from a config file. Having my Spotify API ClientID showing in a public facing repo is pretty horrendous security. For now strangers can only waste my free API calls which is not that big of a deal.
+Pull clientID from a config file. Having my Spotify API ClientID showing in a public facing repo is pretty horrendous security. For now strangers can only waste my free API calls which is not a big deal.
